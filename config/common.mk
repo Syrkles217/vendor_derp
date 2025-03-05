@@ -66,20 +66,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:$(TARGET_COPY_OUT_PRODUCT)/usr/keylayout/Vendor_045e_Product_0719.kl
 
-# Face Unlock
-TARGET_FACE_UNLOCK_SUPPORTED ?= $(TARGET_SUPPORTS_64_BIT_APPS)
-ifeq ($(TARGET_FACE_UNLOCK_SUPPORTED),true)
-    PRODUCT_PACKAGES += \
-        ParanoidSense
-    PRODUCT_SYSTEM_EXT_PROPERTIES += \
-        ro.face.sense_service=true
-    PRODUCT_COPY_FILES += \
-        frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
-else
-    PRODUCT_PACKAGES += \
-        SettingsGoogleFutureFaceEnroll
-endif
-
 # Component overrides
 PRODUCT_PACKAGES += \
     derpfest-component-overrides.xml
@@ -228,3 +214,12 @@ include vendor/derp/config/art.mk
 
 # Versioning
 include vendor/derp/config/version.mk
+
+# Google Faceunlock
+include vendor/google/faceunlock/device.mk
+
+PRODUCT_PACKAGES += \
+    SettingsGoogleFutureFaceEnroll
+
+PRODUCT_PACKAGES += \
+    PixelTrafficLightFaceOverlay
